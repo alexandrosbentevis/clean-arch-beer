@@ -1,0 +1,34 @@
+plugins {
+    id 'kotlin'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget=1.8
+    }
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
+}
+
+dependencies {
+    implementation Libs.kotlinStandardLibrary
+    implementation Libs.kotlinCoroutines
+    implementation Libs.javaInject
+
+    testImplementation Libs.junit
+    testImplementation Libs.mockitoKotlin
+    testImplementation Libs.kluent
+    testImplementation Libs.coroutinesTest
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardOut", "standardError"
+        outputs.upToDateWhen {
+            false
+        }
+        showStandardStreams = true
+    }
+}

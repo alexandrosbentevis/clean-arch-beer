@@ -1,0 +1,87 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+
+    defaultConfig {
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    testOptions.unitTests.includeAndroidResources = true
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    
+    testOptions.unitTests.all {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            outputs.upToDateWhen {
+                false
+            }
+            showStandardStreams = true
+        }
+    }
+}
+
+dependencies {
+    implementation project(':domain')
+
+    // kotlin
+    implementation Libs.kotlinStandardLibrary
+
+    // coroutines
+    implementation Libs.kotlinCoroutines
+
+    // dependency injection
+    implementation Libs.javaInject
+
+    // logging
+    implementation Libs.timber
+
+    // network
+    implementation Libs.retrofit
+    implementation Libs.retrofitGson
+    implementation Libs.okhttpLoggingInterceptor
+
+    // serialization
+    implementation Libs.gson
+
+    // database
+    implementation Libs.roomRuntime
+    implementation Libs.roomKtx
+    kapt           Libs.roomKaptCompiler
+
+    testImplementation Libs.junit
+    testImplementation Libs.mockitoKotlin
+    testImplementation Libs.kluent
+    testImplementation Libs.coroutinesTest
+    testImplementation Libs.mockWebServer
+    testImplementation Libs.turbine
+    testImplementation Libs.archCore
+    testImplementation Libs.testCore
+    testImplementation Libs.robolectric
+    testImplementation Libs.liveData
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="list_item_decoration_padding">4dp</dimen>
+    <dimen name="default_padding">8dp</dimen>
+    <dimen name="large_padding">16dp</dimen>
+    <dimen name="card_radius">4dp</dimen>
+    <dimen name="card_height">140dp</dimen>
+
+    <dimen name="card_image_height">90dp</dimen>
+    <dimen name="card_image_width">45dp</dimen>
+    <dimen name="details_image_height">240dp</dimen>
+    <dimen name="details_image_width">120dp</dimen>
+
+    <dimen name="text_view_margin">2dp</dimen>
+    <dimen name="text_view_margin_big">16dp</dimen>
+
+    <dimen name="title_small_text_size">20sp</dimen>
+    <dimen name="title_big_text_size">28sp</dimen>
+    <dimen name="label_big_text_size">19sp</dimen>
+    <dimen name="label_small_text_size">13sp</dimen>
+    <dimen name="empty_image_view_width">120dp</dimen>
+    <dimen name="empty_image_view_height">120dp</dimen>
+    <dimen name="network_status_banner_height">40dp</dimen>
+</resources>

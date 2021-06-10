@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Punk beers app</string>
+    <string name="abv">ABV %s</string>
+    <string name="beer_image">Beer image</string>
+    <string name="browse_beers">Browse beers</string>
+    <string name="beer_details">Beer details</string>
+    <string name="search">Search</string>
+    <string name="network_unavailable">Network unavailable</string>
+</resources>

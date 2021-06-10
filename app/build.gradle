@@ -1,0 +1,149 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion Versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.alexandrosbentevis.beer"
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "com.alexandrosbentevis.beer.framework.TestRunner"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            shrinkResources false
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions("environment")
+
+    productFlavors {
+        prod {
+            dimension "environment"
+            buildConfigField "String", "ENDPOINT", "\"https://api.punkapi.com/\""
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+        main.java.srcDirs += [file("$buildDir/generated/source/kapt/main")]
+        test.java.srcDirs += "src/test/kotlin"
+        androidTest.java.srcDirs += "src/androidTest/kotlin"
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    testOptions.unitTests.all {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut", "standardError"
+            outputs.upToDateWhen {
+                false
+            }
+            showStandardStreams = true
+        }
+    }
+
+    testOptions {
+        animationsDisabled = true
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+
+dependencies {
+
+    // domain
+    implementation project(":domain")
+
+    // data
+    implementation project(":data")
+
+    // kotlin
+    implementation Libs.kotlinStandardLibrary
+    implementation Libs.androidKotlinExtensions
+
+    // live data
+    implementation Libs.liveData
+
+    // app compat
+    implementation Libs.appCompat
+    implementation Libs.constraintLayout
+
+    // design
+    implementation Libs.materialDesign
+    implementation Libs.swipeRefreshLayout
+    implementation Libs.recyclerView
+
+    // dependency injection
+    implementation Libs.hilt
+    kapt           Libs.hiltCompiler
+
+    // navigation
+    implementation Libs.navigationFragment
+    implementation Libs.navigationUi
+
+    // logs
+    implementation Libs.timber
+
+    // network
+    implementation Libs.retrofit
+    implementation Libs.retrofitGson
+    implementation Libs.okhttpLoggingInterceptor
+
+    // database
+    implementation Libs.roomRuntime
+    implementation Libs.roomKtx
+    kapt           Libs.roomKaptCompiler
+
+    // image loading
+    implementation Libs.picasso
+
+    // test
+    testImplementation Libs.junit
+    testImplementation Libs.mockitoKotlin
+    testImplementation Libs.archCore
+    testImplementation Libs.kluent
+    testImplementation Libs.coroutinesTest
+
+    androidTestImplementation Libs.testRunner
+    androidTestImplementation Libs.testRules
+    androidTestImplementation Libs.espresso
+    androidTestImplementation Libs.hiltTest
+    kaptAndroidTest           Libs.hiltTestCompiler
+    androidTestImplementation Libs.mockWebServer
+    androidTestImplementation(Libs.barista) {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+}

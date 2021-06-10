@@ -1,0 +1,4 @@
+rootProject.name = "clean-arch-beer"
+include ':app'
+include ':domain'
+include ':data'
